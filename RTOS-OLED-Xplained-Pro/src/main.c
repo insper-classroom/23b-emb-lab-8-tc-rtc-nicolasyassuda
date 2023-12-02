@@ -135,7 +135,7 @@ static void task_oled(void *pvParameters) {
 
   for (;;) {
 	  	rtc_get_time(RTC, &current_hour, &current_min, &current_sec);
-	  	sprintf(hora,"%d:%d:%d",current_hour,current_min,current_sec);
+	  	sprintf(hora,"%u:%u:%u",current_hour,current_min,current_sec);
 	  	gfx_mono_draw_string(hora, 0, 20, &sysfont);
 	  	vTaskDelay(100);
 
@@ -150,7 +150,7 @@ void TC1_Handler(void) {
 	* Devemos indicar ao TC que a interrupção foi satisfeita.
 	* Isso é realizado pela leitura do status do periférico
 	**/
-	volatile uint32_t status = tc_get_status(TC0, 1);
+	tc_get_status(TC0, 1);
 
 	/** Muda o estado do LED (pisca) **/
 		pio_clear(LED1_PIO, LED1_PIO_IDX_MASK);
@@ -221,7 +221,7 @@ void RTT_init(float freqPrescale, uint32_t IrqNPulses, uint32_t rttIRQSource) {
 			
 }
 void RTT_Handler(void) { // RTT interrupt handler (ISR) - this function will be called every 1 second
-	uint32_t status = rtt_get_status(RTT);
+	rtt_get_status(RTT);
 	uint32_t IrqNPulses = 20 * 4;
 	RTT_init(20, IrqNPulses, RTT_MR_ALMIEN);
 
