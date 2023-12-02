@@ -145,6 +145,21 @@ static void task_oled(void *pvParameters) {
 /************************************************************************/
 /* funcoes                                                              */
 /************************************************************************/
+void pisca_led () {
+
+	pio_clear(LED1_PIO, LED1_PIO_IDX_MASK);
+	delay_ms(100);
+	pio_set(LED1_PIO, LED1_PIO_IDX_MASK);
+	
+}
+void pisca_led2 () {
+
+	pio_clear(LED2_PIO, LED2_PIO_IDX_MASK);
+	delay_ms(100);
+	pio_set(LED2_PIO, LED2_PIO_IDX_MASK);
+	
+}
+
 void TC1_Handler(void) {
 	/**
 	* Devemos indicar ao TC que a interrupção foi satisfeita.
@@ -153,11 +168,7 @@ void TC1_Handler(void) {
 	tc_get_status(TC0, 1);
 
 	/** Muda o estado do LED (pisca) **/
-		pio_clear(LED1_PIO, LED1_PIO_IDX_MASK);
-		
-		delay_ms(100);
-		
-		pio_set(LED1_PIO, LED1_PIO_IDX_MASK);
+  pisca_led();
 		
 }
 
@@ -172,9 +183,7 @@ void RTC_Handler(void) {
 	/* Time or date alarm */
 	if ((ul_status & RTC_SR_ALARM) == RTC_SR_ALARM) {
 		// o código para irq de alame vem aqui
-		pio_clear(LED2_PIO, LED2_PIO_IDX_MASK);
-		delay_ms(100);
-		pio_set(LED2_PIO, LED2_PIO_IDX_MASK);
+		pisca_led2();
 		pmc_sleep(SAM_PM_SMODE_SLEEP_WFI);
 	}
 
