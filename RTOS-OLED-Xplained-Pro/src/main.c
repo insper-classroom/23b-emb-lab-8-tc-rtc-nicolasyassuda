@@ -114,7 +114,6 @@ extern void vApplicationMallocFailedHook(void) {
 /************************************************************************/
 
 void but_callback(void) {
-	printf("aaa");
 	uint32_t current_hour, current_min, current_sec;
 	uint32_t current_year, current_month, current_day, current_week;
 	rtc_get_time(RTC, &current_hour, &current_min, &current_sec);
