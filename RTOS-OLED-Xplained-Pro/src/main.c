@@ -175,6 +175,7 @@ void RTC_Handler(void) {
 		pio_clear(LED2_PIO, LED2_PIO_IDX_MASK);
 		delay_ms(100);
 		pio_set(LED2_PIO, LED2_PIO_IDX_MASK);
+		pmc_sleep(SAM_PM_SMODE_SLEEP_WFI);
 	}
 
 	rtc_clear_status(RTC, RTC_SCCR_SECCLR);
